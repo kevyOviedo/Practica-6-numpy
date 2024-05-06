@@ -41,17 +41,19 @@ print(csv_slices[0])
 # Hacer todos los valores float a excepcion de la primera fila (header)
 valores = csv_slices[1:,:].astype(float)
 
-print(csv_slices)
+#print(csv_slices)
 
+#Obtener promedio de los datos de personas que tuvieron strokes
 stroke = valores[:,-1]
+array_1_stroke = valores[stroke == 1]
+strokeAvg = np.mean(array_1_stroke, axis=0)
 
-# Obtener promedio de cada columna
-Avg = np.mean(valores, axis=0)
-
-#Obtener maximo de cada columna
+#Obtener valor maximo de cada columna
 max_values = np.max(valores, axis=0)
 
-#Obtener peso
-weights = np.round((Avg / max_values)* 100)
-print("\nWeights:\n",weights)
+#Calcular pesos
+weights = np.round((strokeAvg/ max_values)* 100)
+weights = weights[0:-1]
+print(weights)
 
+valores = valores[:,0:-1]
